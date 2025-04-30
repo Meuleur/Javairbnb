@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="view.RegisterController"
+            prefWidth="800" prefHeight="600">
+    <VBox spacing="10" alignment="CENTER" layoutX="250" layoutY="150" prefWidth="300">
+        <Label text="Inscription Utilisateur" style="-fx-font-size: 18;" />
+        <TextField fx:id="nomField" promptText="Nom"/>
+        <TextField fx:id="prenomField" promptText="Prénom"/>
+        <TextField fx:id="emailField" promptText="Email"/>
+        <PasswordField fx:id="motDePasseField" promptText="Mot de passe"/>
+        <TextField fx:id="typeClientField" promptText="Type de client (ancien/nouveau)"/>
+        <Button text="S'inscrire" onAction="#handleRegister"/>
+        <Button text="Retour à la connexion" onAction="#handleBackToLogin"/>
+
+    </VBox>
+</AnchorPane>
