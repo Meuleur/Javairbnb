@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="view.NouvelleAnnonceController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;"
+      prefWidth="800" prefHeight="600">
+
+    <Label text="Nouvelle annonce" style="-fx-font-size: 18;"/>
+
+    <TextField fx:id="nomField" promptText="Nom"/>
+    <TextField fx:id="adresseField" promptText="Adresse"/>
+    <TextField fx:id="descriptionField" promptText="Description"/>
+    <TextField fx:id="prixField" promptText="Prix en €"/>
+    <ComboBox fx:id="typeField" promptText="Type d'hébergement">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Hôtel"/>
+                <String fx:value="Camping"/>
+                <String fx:value="Appartement"/>
+                <String fx:value="Villa"/>
+                <String fx:value="Chalet"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+
+    <Button text="Poster l'annonce" onAction="#handlePosterAnnonce"/>
+</VBox>
