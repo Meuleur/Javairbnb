@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<VBox spacing="10" alignment="CENTER"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="view.ClientReservationController">
+
+    <Button text="Retour à l'accueil" onAction="#retourAccueil" />
+    <Label text="Mes demandes de réservation" style="-fx-font-size: 18px;" />
+    <TableView fx:id="tableDemandes" prefWidth="600">
+
+        <columns>
+            <TableColumn fx:id="colHebergement" text="Hébergement"/>
+            <TableColumn fx:id="colDateArrivee" text="Date d’arrivée"/>
+            <TableColumn fx:id="colDateDepart" text="Date de départ"/>
+            <TableColumn fx:id="colStatut" text="Statut"/>
+            <TableColumn fx:id="colPrix" text="Prix"/>
+            <TableColumn fx:id="colActionPayer" text="Action"/>
+        </columns>
+
+    </TableView>
+
+
+        <Label text="Réservations à valider (en tant que propriétaire)" style="-fx-font-size: 18px;" />
+        <TableView fx:id="tableReceptions" prefWidth="600">
+            <columns>
+                <TableColumn fx:id="colClient" text="Client"/>
+                <TableColumn fx:id="colHebergementTitre" text="Hébergement"/>
+                <TableColumn fx:id="colDateArriveeProp" text="Date d’arrivée"/>
+                <TableColumn fx:id="colDateDepartProp" text="Date de départ"/>
+                <TableColumn fx:id="colPrix" text="Prix"/>
+                <TableColumn fx:id="colActions" text="Action"/>
+
+            </columns>
+        </TableView>
+
+
+</VBox>

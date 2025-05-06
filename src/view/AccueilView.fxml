@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="view.AccueilController"
+            prefWidth="900" prefHeight="600"
+            style="-fx-background-color: linear-gradient(to bottom right, #f0f4f8, #ffffff);">
+
+    <!-- EN-TÊTE -->
+    <top>
+        <VBox spacing="20" alignment="CENTER" style="-fx-padding: 30;">
+            <Label text="Booking App"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #37474F;" />
+
+            <TextField fx:id="champRecherche"
+                       promptText="Rechercher par adresse ou ville"
+                       style="-fx-pref-width: 300px; -fx-background-radius: 15; -fx-padding: 8 12;"
+                       onKeyReleased="#filtrerHebergements"/>
+
+            <ComboBox fx:id="comboTri" onAction="#trierHebergements"
+                      style="-fx-pref-width: 200px; -fx-background-radius: 15; -fx-padding: 4 8;"
+                      promptText="Trier par...">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Prix croissant"/>
+                        <String fx:value="Prix décroissant"/>
+                        <String fx:value="Type d'hébergement"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="Mon compte"
+                        onAction="#ouvrirMonCompte"
+                        style="-fx-background-color: #0288d1; -fx-text-fill: white; -fx-background-radius: 20; -fx-pref-width: 150;"/>
+                <Button text="Nouvelle annonce"
+                        onAction="#handleOuvrirFormulaireAnnonce"
+                        style="-fx-background-color: #00796b; -fx-text-fill: white; -fx-background-radius: 20; -fx-pref-width: 150;"/>
+                <Button text="Mes réservations"
+                        onAction="#ouvrirPageDemandesClient"
+                        style="-fx-background-color: #5d4037; -fx-text-fill: white; -fx-background-radius: 20; -fx-pref-width: 150;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- TABLEAU -->
+    <center>
+        <TableView fx:id="tableHebergements" style="-fx-padding: 20; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+            <columns>
+                <TableColumn text="Nom" fx:id="colNom" prefWidth="150"/>
+                <TableColumn text="Adresse" fx:id="colAdresse" prefWidth="200"/>
+                <TableColumn text="Description" fx:id="colDescription" prefWidth="250"/>
+                <TableColumn text="Prix" fx:id="colPrix" prefWidth="100"/>
+                <TableColumn text="Type" fx:id="colType" prefWidth="120"/>
+                <TableColumn text="Action" fx:id="colAction" prefWidth="120"/>
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>

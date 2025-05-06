@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
-
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="view.LoginController"
             prefWidth="800" prefHeight="600">
     <VBox alignment="CENTER" spacing="10" layoutX="250" layoutY="200" prefWidth="250">

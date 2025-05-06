@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="view.NouvelleAnnonceController"
+            prefWidth="800" prefHeight="600"
+            style="-fx-background-color: linear-gradient(to bottom right, #f1f8e9, #ffffff);">
+
+    <VBox alignment="CENTER" spacing="15" layoutX="200" layoutY="60" prefWidth="400"
+          style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 6);"
+         >
+
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <Label text="Nouvelle annonce"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #33691E;" />
+
+        <TextField fx:id="nomField"
+                   promptText="Nom"
+                   style="-fx-background-radius: 10; -fx-pref-width: 250;"/>
+
+        <TextField fx:id="adresseField"
+                   promptText="Adresse"
+                   style="-fx-background-radius: 10; -fx-pref-width: 250;"/>
+
+        <TextField fx:id="descriptionField"
+                   promptText="Description"
+                   style="-fx-background-radius: 10; -fx-pref-width: 250;"/>
+
+        <TextField fx:id="prixField"
+                   promptText="Prix en €"
+                   style="-fx-background-radius: 10; -fx-pref-width: 250;"/>
+
+        <ComboBox fx:id="typeField"
+                  promptText="Type d'hébergement"
+                  style="-fx-background-radius: 10; -fx-pref-width: 250;">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Hôtel"/>
+                    <String fx:value="Camping"/>
+                    <String fx:value="Appartement"/>
+                    <String fx:value="Villa"/>
+                    <String fx:value="Chalet"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Button text="Poster l'annonce"
+                onAction="#handlePosterAnnonce"
+                style="-fx-background-color: #558B2F; -fx-text-fill: white; -fx-background-radius: 20; -fx-pref-width: 200;"/>
+    </VBox>
+</AnchorPane>

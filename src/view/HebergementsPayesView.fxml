@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<VBox spacing="10" alignment="CENTER"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="view.HebergementsPayesController">
+
+    <Label text="Mes hébergements payés" style="-fx-font-size: 18px;" />
+    <TableView fx:id="tablePayes" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="colHebergement" text="Hébergement"/>
+            <TableColumn fx:id="colDateArrivee" text="Date d’arrivée"/>
+            <TableColumn fx:id="colDateDepart" text="Date de départ"/>
+            <TableColumn fx:id="colMontant" text="Montant payé"/>
+            <TableColumn fx:id="colDatePaiement" text="Date du paiement"/>
+        </columns>
+    </TableView>
+    <Button text="Retour" onAction="#retourAccueil"/>
+</VBox>

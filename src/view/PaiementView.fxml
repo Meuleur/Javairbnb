@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="view.PaiementController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+
+    <Label text="Paiement" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="champNumeroCarte" promptText="Numéro de carte"/>
+    <TextField fx:id="champExpiration" promptText="Date d'expiration (MM/YY)"/>
+    <PasswordField fx:id="champCVV" promptText="CVV"/>
+
+    <Button text="Confirmer le paiement" onAction="#confirmerPaiement"/>
+
+</VBox>
