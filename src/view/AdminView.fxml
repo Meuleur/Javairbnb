@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="view.AdminController"
+      spacing="15" alignment="CENTER" style="-fx-padding: 30;">
+
+    <Text text="Espace Administrateur" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <TableView fx:id="tableHebergements" prefWidth="800">
+        <columns>
+            <TableColumn fx:id="colNom" text="Nom" prefWidth="150"/>
+            <TableColumn fx:id="colAdresse" text="Adresse" prefWidth="200"/>
+            <TableColumn fx:id="colPrix" text="Prix (€)" prefWidth="100"/>
+            <TableColumn fx:id="colType" text="Type" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Button text="Ajouter" onAction="#handleAjouter" />
+        <Button text="Modifier" onAction="#handleModifier" />
+        <Button text="Supprimer" onAction="#handleSupprimer" />
+    </HBox>
+
+</VBox>

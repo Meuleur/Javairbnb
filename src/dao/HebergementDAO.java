@@ -8,71 +8,91 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HebergementDAO {
-    private Connection conn;
+    private final Connection conn;
 
     public HebergementDAO() throws SQLException {
         this.conn = DatabaseConnection.getConnection();
     }
 
-    public List<Hebergement> getAll() throws SQLException {
+    // Utilisé par la GUI admin
+    public static List<Hebergement> getTousLesHebergements() {
         List<Hebergement> hebergements = new ArrayList<>();
-        String sql = "SELECT * FROM Hebergement";
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
 
-        while (rs.next()) {
-            Hebergement h = new Hebergement();
-            h.setId(rs.getInt("id"));
-            h.setNom(rs.getString("nom"));
-            h.setAdresse(rs.getString("adresse"));
-            h.setDescription(rs.getString("description"));
-            h.setPrix(rs.getDouble("prix"));
-            h.setValide (rs.getBoolean("valide"));
-            h.setProprietaireId(rs.getInt("proprietaire_id"));
-            h.setType(rs.getString("type"));
-            hebergements.add(h);
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM Hebergement")) {
+
+            while (rs.next()) {
+                Hebergement h = new Hebergement();
+                h.setId(rs.getInt("id"));
+                h.setNom(rs.getString("nom"));
+                h.setAdresse(rs.getString("adresse"));
+                h.setDescription(rs.getString("description"));
+                h.setPrix(rs.getDouble("prix"));
+                h.setValide(rs.getBoolean("valide"));
+                h.setProprietaireId(rs.getInt("proprietaire_id"));
+                h.setType(rs.getString("type"));
+                hebergements.add(h);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        rs.close();
-        stmt.close();
         return hebergements;
     }
 
     public void ajouterHebergement(Hebergement h) throws SQLException {
         String sql = "INSERT INTO Hebergement (nom, adresse, description, prix, type, proprietaire_id) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, h.getNom());
-        stmt.setString(2, h.getAdresse());
-        stmt.setString(3, h.getDescription());
-        stmt.setDouble(4, h.getPrix());
-        stmt.setString(5, h.getType());
-        stmt.setInt(6, h.getProprietaireId());
-        stmt.executeUpdate();
-        stmt.close();
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, h.getNom());
+            stmt.setString(2, h.getAdresse());
+            stmt.setString(3, h.getDescription());
+            stmt.setDouble(4, h.getPrix());
+            stmt.setString(5, h.getType());
+            stmt.setInt(6, h.getProprietaireId());
+            stmt.executeUpdate();
+        }
     }
 
     public Hebergement getById(int id) throws SQLException {
         String sql = "SELECT * FROM Hebergement WHERE id = ?";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, id);
-        ResultSet rs = stmt.executeQuery();
+        Hebergement h = null;
 
-        Hebergement hebergement = null;
-        if (rs.next()) {
-            hebergement = new Hebergement();
-            hebergement.setId(rs.getInt("id"));
-            hebergement.setNom(rs.getString("nom"));
-            hebergement.setAdresse(rs.getString("adresse"));
-            hebergement.setDescription(rs.getString("description"));
-            hebergement.setPrix(rs.getDouble("prix"));
-            hebergement.setType(rs.getString("type"));
-            hebergement.setValide(rs.getBoolean("valide"));
-            hebergement.setProprietaireId(rs.getInt("proprietaire_id"));
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                h = new Hebergement();
+                h.setId(rs.getInt("id"));
+                h.setNom(rs.getString("nom"));
+                h.setAdresse(rs.getString("adresse"));
+                h.setDescription(rs.getString("description"));
+                h.setPrix(rs.getDouble("prix"));
+                h.setType(rs.getString("type"));
+                h.setValide(rs.getBoolean("valide"));
+                h.setProprietaireId(rs.getInt("proprietaire_id"));
+            }
+
+            rs.close();
         }
 
-        rs.close();
-        stmt.close();
-        return hebergement;
+        return h;
     }
 
+    public static boolean supprimerHebergement(int id) {
+        String sql = "DELETE FROM Hebergement WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

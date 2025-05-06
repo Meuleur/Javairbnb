@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="view.AjouterHebergementController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+
+    <Label text="Ajouter un hébergement" style="-fx-font-size: 18px;"/>
+
+    <TextField fx:id="nomField" promptText="Nom"/>
+    <TextField fx:id="adresseField" promptText="Adresse"/>
+    <TextField fx:id="descriptionField" promptText="Description"/>
+    <TextField fx:id="prixField" promptText="Prix"/>
+    <TextField fx:id="typeField" promptText="Type"/>
+    <TextField fx:id="proprietaireField" promptText="ID propriétaire"/>
+
+    <Button text="Ajouter" onAction="#handleAjouter"/>
+</VBox>
