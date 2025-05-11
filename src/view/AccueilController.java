@@ -28,12 +28,17 @@ public class AccueilController {
     @FXML private ComboBox<String> comboTri;
     @FXML private TextField champRecherche;
     @FXML private TableColumn<Hebergement, String> colType;
+    @FXML private Button espaceAdminButton;
+
 
     private ObservableList<Hebergement> data;
 
 
     @FXML
     public void initialize() {
+        if (!LoginController.utilisateurConnecte.getRole().equals("ADMIN")) {
+            espaceAdminButton.setVisible(false);
+        }
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -57,7 +62,7 @@ public class AccueilController {
 
         try {
             HebergementDAO dao = new HebergementDAO();
-            List<Hebergement> liste = dao.getAll();
+            List<Hebergement> liste = HebergementDAO.getTousLesHebergements();
             data = FXCollections.observableArrayList(liste);
             tableHebergements.setItems(data);
         } catch (SQLException e) {
@@ -101,7 +106,7 @@ public class AccueilController {
     public void refreshTable() {
         try {
             HebergementDAO dao = new HebergementDAO();
-            List<Hebergement> liste = dao.getAll();
+            List<Hebergement> liste = HebergementDAO.getTousLesHebergements();
             ObservableList<Hebergement> data = FXCollections.observableArrayList(liste);
             tableHebergements.setItems(data);
         } catch (SQLException e) {
@@ -184,5 +189,27 @@ public class AccueilController {
 
         tableHebergements.setItems(filtres);
     }
+    @FXML
+    private void ouvrirEspaceAdmin() {
+        // Sécurité : vérifier le rôle même si le bouton est caché
+        if (!LoginController.utilisateurConnecte.getRole().equals("ADMIN")) {
+            showAlert("Accès interdit", "Vous n'avez pas les droits pour accéder à l'espace administrateur.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdminView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Espace Administrateur");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 }

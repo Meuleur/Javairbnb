@@ -14,7 +14,6 @@ public class HebergementDAO {
         this.conn = DatabaseConnection.getConnection();
     }
 
-    // Utilisé par la GUI admin
     public static List<Hebergement> getTousLesHebergements() {
         List<Hebergement> hebergements = new ArrayList<>();
 
@@ -56,6 +55,45 @@ public class HebergementDAO {
         }
     }
 
+    public void updateHebergement(Hebergement h) throws SQLException {
+        String sql = "UPDATE Hebergement SET " +
+                "nom = ?, " +
+                "adresse = ?, " +
+                "description = ?, " +
+                "prix = ?, " +
+                "type = ?, " +
+                "proprietaire_id = ?, " +
+                "valide = ? " +  // Mise à jour du champ valide
+                "WHERE id = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, h.getNom());
+            stmt.setString(2, h.getAdresse());
+            stmt.setString(3, h.getDescription());
+            stmt.setDouble(4, h.getPrix());
+            stmt.setString(5, h.getType());
+            stmt.setInt(6, h.getProprietaireId());
+            stmt.setBoolean(7, h.isValide());  // Applique l'état actif/inactif
+            stmt.setInt(8, h.getId());
+
+            stmt.executeUpdate();
+        }
+    }
+
+    public static boolean supprimerHebergement(int id) {
+        String sql = "DELETE FROM Hebergement WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public Hebergement getById(int id) throws SQLException {
         String sql = "SELECT * FROM Hebergement WHERE id = ?";
         Hebergement h = null;
@@ -80,19 +118,5 @@ public class HebergementDAO {
         }
 
         return h;
-    }
-
-    public static boolean supprimerHebergement(int id) {
-        String sql = "DELETE FROM Hebergement WHERE id = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            return stmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 }

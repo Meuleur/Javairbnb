@@ -8,6 +8,8 @@ public class Utilisateur {
     private String email;
     private String motDePasse;
     private String typeClient;
+    private String role;
+
 
     // Getters et setters
     public int getId() { return id; }
@@ -27,6 +29,10 @@ public class Utilisateur {
 
     public String getTypeClient() { return typeClient; }
     public void setTypeClient(String typeClient) { this.typeClient = typeClient; }
+
+    public String getRole() { return role;}
+    public void setRole(String role) { this.role = role;}
+
 
     @Override
     public String toString() {

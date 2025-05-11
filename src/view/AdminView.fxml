@@ -20,13 +20,18 @@
             <TableColumn fx:id="colAdresse" text="Adresse" prefWidth="200"/>
             <TableColumn fx:id="colPrix" text="Prix (€)" prefWidth="100"/>
             <TableColumn fx:id="colType" text="Type" prefWidth="100"/>
+            <TableColumn fx:id="colDescription" text="Description" prefWidth="250"/>
+            <TableColumn fx:id="colValide" text="Statut" prefWidth="100"/>
         </columns>
     </TableView>
+
 
     <HBox spacing="10">
         <Button text="Ajouter" onAction="#handleAjouter" />
         <Button text="Modifier" onAction="#handleModifier" />
         <Button text="Supprimer" onAction="#handleSupprimer" />
+        <Button text="Changer état" onAction="#handleToggleValide"/>
+
     </HBox>
 
 </VBox>

@@ -11,7 +11,6 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
-<?import java.lang.String?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.AccueilController"
@@ -51,6 +50,10 @@
                 <Button text="Mes réservations"
                         onAction="#ouvrirPageDemandesClient"
                         style="-fx-background-color: #5d4037; -fx-text-fill: white; -fx-background-radius: 20; -fx-pref-width: 150;"/>
+                <Button text="Espace Admin"
+                        onAction="#ouvrirEspaceAdmin"
+                        style="-fx-background-color: #6a1b9a; -fx-text-fill: white; -fx-background-radius: 20; -fx-pref-width: 150;"/>
+                <Button fx:id="espaceAdminButton" text="Espace Admin" onAction="#ouvrirEspaceAdmin" />
             </HBox>
         </VBox>
     </top>

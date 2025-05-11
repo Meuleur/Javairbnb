@@ -17,8 +17,10 @@ public class LoginController {
     @FXML private TextField emailField;
     @FXML private PasswordField motDePasseField;
 
-    @FXML
+    // 🔑 Stockage accessible partout après connexion
+    public static Utilisateur utilisateurConnecte;
 
+    @FXML
     private void handleLogin() {
         String email = emailField.getText();
         String motDePasse = motDePasseField.getText();
@@ -28,8 +30,11 @@ public class LoginController {
             Utilisateur user = dao.findByEmailAndPassword(email, motDePasse);
 
             if (user != null) {
+                Session.getInstance().setUtilisateurActuel(user);  // Session
+                utilisateurConnecte = user;                       // Accès direct
 
-                Session.getInstance().setUtilisateurActuel(user);
+                System.out.println("Utilisateur connecté : " + utilisateurConnecte.getEmail() +
+                        ", Rôle : " + utilisateurConnecte.getRole());
 
                 Parent accueilRoot = FXMLLoader.load(getClass().getResource("/view/AccueilView.fxml"));
                 Stage stage = new Stage();
@@ -37,7 +42,6 @@ public class LoginController {
                 stage.setScene(new Scene(accueilRoot));
                 stage.show();
 
-                // Fermer la fenêtre actuelle de login
                 Stage currentStage = (Stage) emailField.getScene().getWindow();
                 currentStage.close();
             } else {
@@ -62,14 +66,12 @@ public class LoginController {
 
     public void handleGoToRegister() {
         try {
-            // 🔁 Charger la vue d'inscription
             Parent registerRoot = FXMLLoader.load(getClass().getResource("RegisterView.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Inscription");
             stage.setScene(new Scene(registerRoot));
             stage.show();
 
-            // 🔒 Fermer la fenêtre de connexion actuelle
             Stage currentStage = (Stage) emailField.getScene().getWindow();
             currentStage.close();
 
@@ -78,5 +80,4 @@ public class LoginController {
             showAlert("Erreur", "Impossible d'ouvrir la page d'inscription.");
         }
     }
-
 }
