@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * Représente un hébergement proposé par un propriétaire.
+ * Contient les informations principales telles que le nom, l'adresse, le prix, le type,
+ * ainsi que son statut de validation.
+ */
+
+
 public class Hebergement {
     private int id;
     private String nom;

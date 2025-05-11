@@ -1,23 +1,27 @@
 package view;
 
 import dao.ReservationDAO;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import model.Reservation;
 import utils.Session;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
+/**
+ * Contrôleur de la page affichant les hébergements réservés et payés par l'utilisateur.
+ * Permet à un client de consulter ses paiements passés avec les dates et montants associés.
+ */
 public class HebergementsPayesController {
 
     @FXML private TableView<Reservation> tablePayes;
@@ -27,6 +31,9 @@ public class HebergementsPayesController {
     @FXML private TableColumn<Reservation, String> colMontant;
     @FXML private TableColumn<Reservation, LocalDate> colDatePaiement;
 
+    /**
+     * Initialise les colonnes de la table et charge les réservations payées.
+     */
     @FXML
     public void initialize() {
         colHebergement.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getHebergementTitre()));
@@ -37,7 +44,9 @@ public class HebergementsPayesController {
 
         chargerHebergementsPayes();
     }
-
+    /**
+     * Charge la liste des réservations payées pour l’utilisateur connecté.
+     */
     private void chargerHebergementsPayes() {
         try {
             int userId = Session.getInstance().getUtilisateurActuel().getId();
@@ -47,7 +56,9 @@ public class HebergementsPayesController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Retourne à la vue d’accueil.
+     */
     @FXML
     private void retourAccueil() {
         try {

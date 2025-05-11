@@ -4,17 +4,42 @@ import model.Reservation;
 import utils.DatabaseConnection;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * La classe {@code ReservationDAO} fournit les opérations de gestion
+ * des réservations dans la base de données.
+ * Elle permet d'insérer des réservations, d'en récupérer selon divers critères,
+ * et de mettre à jour leur statut.
+ */
+
 public class ReservationDAO {
     private final Connection conn;
+
+
+    /**
+     * Constructeur par défaut qui établit une connexion à la base de données.
+     *
+     * @throws SQLException si une erreur survient lors de l'établissement de la connexion
+     */
 
     public ReservationDAO() throws SQLException {
         this.conn = DatabaseConnection.getConnection();
     }
 
-    /** Insère une nouvelle demande de réservation. */
+    /**
+     * Insère une nouvelle demande de réservation dans la base de données.
+     * La date de réservation est automatiquement fixée à l'heure actuelle.
+     * Le champ {@code valide} est initialisé à {@code FALSE}.
+     *
+     * @param r l'objet {@code Reservation} à insérer
+     * @throws SQLException si une erreur SQL survient
+     */
+
     public void insert(Reservation r) throws SQLException {
         String sql =
                 "INSERT INTO Reservation " +
@@ -34,7 +59,13 @@ public class ReservationDAO {
     }
 
 
-    /** Récupère les demandes non validées pour un propriétaire donné. */
+    /**
+     * Récupère toutes les réservations non encore validées pour un propriétaire donné.
+     *
+     * @param ownerId l'identifiant du propriétaire
+     * @return la liste des {@code Reservation} en attente
+     * @throws SQLException si une erreur SQL survient
+     */
     public List<Reservation> getPendingForOwner(int ownerId) throws SQLException {
         String sql =
                 "SELECT r.id, r.date_reservation, r.date_arrivee, r.date_depart, r.valide, " +
@@ -70,7 +101,13 @@ public class ReservationDAO {
         return list;
     }
 
-    /** Accepte ou refuse une demande de réservation. */
+    /**
+     * Met à jour le statut de validation d'une réservation.
+     *
+     * @param reservationId l'identifiant de la réservation
+     * @param valide {@code true} si la réservation est acceptée, {@code false} sinon
+     * @throws SQLException si une erreur SQL survient
+     */
     public void setValide(int reservationId, boolean valide) throws SQLException {
         String sql = "UPDATE Reservation SET valide = ? WHERE id = ?";
         try (PreparedStatement p = conn.prepareStatement(sql)) {
@@ -79,7 +116,13 @@ public class ReservationDAO {
             p.executeUpdate();
         }
     }
-
+    /**
+     * Récupère toutes les réservations effectuées par un utilisateur donné.
+     *
+     * @param userId l'identifiant de l'utilisateur
+     * @return la liste des {@code Reservation} associées
+     * @throws SQLException si une erreur SQL survient
+     */
     public List<Reservation> getByUtilisateur(int userId) throws SQLException {
         String sql =
                 "SELECT r.id, r.date_reservation, r.date_arrivee, r.date_depart, r.valide, " +
@@ -114,6 +157,13 @@ public class ReservationDAO {
     }
 
 
+    /**
+     * Récupère toutes les réservations reçues par un propriétaire donné.
+     *
+     * @param proprietaireId l'identifiant du propriétaire
+     * @return la liste des {@code Reservation} reçues
+     * @throws SQLException si une erreur SQL survient
+     */
 
     public List<Reservation> getByProprietaire(int proprietaireId) throws SQLException {
         String sql =
@@ -147,6 +197,15 @@ public class ReservationDAO {
         }
         return result;
     }
+
+    /**
+     * Récupère toutes les réservations payées d’un utilisateur donné,
+     * incluant les informations de paiement associées.
+     *
+     * @param userId l’identifiant de l’utilisateur
+     * @return une liste de {@code Reservation} avec montants et dates de paiement
+     * @throws SQLException si une erreur SQL survient
+     */
     public List<Reservation> getPayeesByUtilisateur(int userId) throws SQLException {
         String sql = "SELECT r.*, h.nom AS hebergementTitre, p.montant AS montantPaye, p.date_paiement " +
                 "FROM Reservation r " +

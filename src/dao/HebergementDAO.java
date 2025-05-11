@@ -7,12 +7,35 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * La classe {@code HebergementDAO} fournit des méthodes pour accéder et manipuler les données
+ * de la table Hebergement dans la base de données.
+ * Elle suit le pattern DAO (Data Access Object).
+ */
+
 public class HebergementDAO {
     private Connection conn;
+
+
+    /**
+     * Constructeur qui initialise la connexion à la base de données
+     * en utilisant la classe utilitaire {@code DatabaseConnection}.
+     *
+     * @throws SQLException si une erreur survient lors de l'ouverture de la connexion
+     */
 
     public HebergementDAO() throws SQLException {
         this.conn = DatabaseConnection.getConnection();
     }
+
+
+    /**
+     * Récupère la liste de tous les hébergements enregistrés dans la base de données.
+     *
+     * @return une liste d'objets {@code Hebergement}
+     * @throws SQLException si une erreur SQL survient lors de l'exécution de la requête
+     */
+
 
     public List<Hebergement> getAll() throws SQLException {
         List<Hebergement> hebergements = new ArrayList<>();
@@ -38,6 +61,14 @@ public class HebergementDAO {
         return hebergements;
     }
 
+
+    /**
+     * Insère un nouvel hébergement dans la base de données.
+     *
+     * @param h l'objet {@code Hebergement} à ajouter (l'attribut `id` est ignoré car généré automatiquement)
+     * @throws SQLException si une erreur survient lors de l'exécution de l'instruction SQL
+     */
+
     public void ajouterHebergement(Hebergement h) throws SQLException {
         String sql = "INSERT INTO Hebergement (nom, adresse, description, prix, type, proprietaire_id) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -50,6 +81,16 @@ public class HebergementDAO {
         stmt.executeUpdate();
         stmt.close();
     }
+
+
+
+    /**
+     * Récupère un hébergement spécifique selon son identifiant.
+     *
+     * @param id l'identifiant de l'hébergement à rechercher
+     * @return un objet {@code Hebergement} si trouvé, sinon {@code null}
+     * @throws SQLException si une erreur SQL survient
+     */
 
     public Hebergement getById(int id) throws SQLException {
         String sql = "SELECT * FROM Hebergement WHERE id = ?";

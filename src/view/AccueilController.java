@@ -1,22 +1,36 @@
+/**
+ * Contrôleur de la vue d'accueil principale de l'application.
+ * Il gère l'affichage des hébergements dans une table, ainsi que les interactions utilisateur :
+ * - Réservation d’un hébergement
+ * - Tri et filtrage des hébergements
+ * - Navigation vers d'autres vues : compte utilisateur, formulaire de réservation ou de nouvelle annonce.
+ */
+
+
 package view;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import dao.HebergementDAO;
+import model.Hebergement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Hebergement;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-
+/**
+ * Contrôleur de la vue d'accueil principale de l'application.
+ * Il gère l'affichage des hébergements dans une table, ainsi que les interactions utilisateur :
+ * - Réservation d’un hébergement
+ * - Tri et filtrage des hébergements
+ * - Navigation vers d'autres vues : compte utilisateur, formulaire de réservation ou de nouvelle annonce.
+ */
 public class AccueilController {
 
     @FXML private TableView<Hebergement> tableHebergements;
@@ -31,7 +45,9 @@ public class AccueilController {
 
     private ObservableList<Hebergement> data;
 
-
+    /**
+     * Initialise la table avec les données et les boutons d'action.
+     */
     @FXML
     public void initialize() {
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -64,7 +80,9 @@ public class AccueilController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Ouvre le formulaire pour poster une nouvelle annonce.
+     */
     @FXML
     private void handleOuvrirFormulaireAnnonce() {
         try {
@@ -89,7 +107,9 @@ public class AccueilController {
     }
 
 
-
+    /**
+     * Affiche une alerte simple avec un titre et un message.
+     */
     private void showAlert(String titre, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titre);
@@ -97,7 +117,9 @@ public class AccueilController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+    /**
+     * Recharge les données de la table des hébergements depuis la base.
+     */
     public void refreshTable() {
         try {
             HebergementDAO dao = new HebergementDAO();
@@ -109,6 +131,10 @@ public class AccueilController {
             showAlert("Erreur", "Impossible de rafraîchir la liste des hébergements.");
         }
     }
+
+    /**
+     * Ouvre la page des réservations du client.
+     */
     @FXML
     private void ouvrirPageDemandesClient() {
         try {
@@ -122,6 +148,9 @@ public class AccueilController {
         }
     }
 
+    /**
+     * Ouvre le formulaire de réservation pour un hébergement sélectionné.
+     */
     private void ouvrirFormulaireReservation(Hebergement h) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FormulaireReservationView.fxml"));
@@ -139,6 +168,10 @@ public class AccueilController {
             showAlert("Erreur", "Impossible d’ouvrir le formulaire de réservation.");
         }
     }
+
+    /**
+     * Ouvre la page "Mon compte" de l'utilisateur.
+     */
     @FXML
     private void ouvrirMonCompte() {
         try {
@@ -150,6 +183,9 @@ public class AccueilController {
             e.printStackTrace();
         }
     }
+    /**
+     * Trie les hébergements selon l'option choisie (prix ou type).
+     */
     @FXML
     private void trierHebergements() {
         if (comboTri.getValue() == null) return;
@@ -169,6 +205,10 @@ public class AccueilController {
         }
         tableHebergements.refresh(); // Mettre à jour la vue
     }
+
+    /**
+     * Filtre les hébergements affichés selon le texte saisi (nom ou adresse).
+     */
     @FXML
     private void filtrerHebergements() {
         String filtre = champRecherche.getText().toLowerCase();

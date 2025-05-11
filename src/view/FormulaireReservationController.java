@@ -4,13 +4,17 @@ import dao.ReservationDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Hebergement;
 import model.Reservation;
+import model.Hebergement;
 import utils.Session;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-
+/**
+ * Contrôleur du formulaire de réservation.
+ * Permet à l'utilisateur de sélectionner ses dates de séjour et le nombre de personnes,
+ * puis d’envoyer une demande de réservation pour un hébergement spécifique.
+ */
 public class FormulaireReservationController {
 
     @FXML private DatePicker dateArrivee;
@@ -22,18 +26,27 @@ public class FormulaireReservationController {
 
     private Hebergement hebergement;
 
-    // Appelée depuis le contrôleur parent pour transmettre l’hébergement
+    /**
+     * Définit l'hébergement pour lequel l'utilisateur souhaite réserver.
+     * Appelée depuis le contrôleur parent (Accueil).
+     *
+     * @param h l’hébergement concerné
+     */
     public void setHebergement(Hebergement h) {
         this.hebergement = h;
     }
-
+    /**
+     * Initialise les spinners pour adultes et enfants avec des valeurs par défaut.
+     */
     @FXML
     public void initialize() {
         spinnerAdultes.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1));
         spinnerEnfants.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0));
     }
 
-
+    /**
+     * Vérifie les dates et envoie la demande de réservation à la base de données.
+     */
     @FXML
     private void envoyerDemande() {
         LocalDate arrivee = dateArrivee.getValue();
@@ -62,12 +75,19 @@ public class FormulaireReservationController {
             montrerAlerte("Erreur", "Échec de l’envoi de la demande.");
         }
     }
-
+    /**
+     * Ferme la fenêtre actuelle.
+     */
     private void fermerFenetre() {
         Stage stage = (Stage) dateArrivee.getScene().getWindow();
         stage.close();
     }
-
+    /**
+     * Affiche une alerte avec un titre et un message personnalisés.
+     *
+     * @param titre   le titre de l’alerte
+     * @param message le message à afficher
+     */
     private void montrerAlerte(String titre, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titre);
