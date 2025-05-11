@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="view.ModifierUtilisateurController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+
+    <Label text="Modifier l'utilisateur" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="nomField" promptText="Nom"/>
+    <TextField fx:id="prenomField" promptText="Prénom"/>
+    <TextField fx:id="emailField" promptText="Email"/>
+    <TextField fx:id="typeClientField" promptText="Type de client (NOUVEAU/ANCIEN)"/>
+    <TextField fx:id="roleField" promptText="Rôle (CLIENT/ADMIN)"/>
+
+    <Button text="Enregistrer les modifications" onAction="#handleModifier"/>
+</VBox>

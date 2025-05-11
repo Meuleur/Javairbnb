@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="view.ClientController"
+      spacing="15" alignment="CENTER" style="-fx-padding: 30;">
+
+    <Label text="Liste des utilisateurs" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <TableView fx:id="tableUtilisateurs" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="colNom" text="Nom" prefWidth="100"/>
+            <TableColumn fx:id="colPrenom" text="Prénom" prefWidth="100"/>
+            <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+            <TableColumn fx:id="colTypeClient" text="Type Client" prefWidth="100"/>
+            <TableColumn fx:id="colRole" text="Rôle" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <Button text="Fermer" onAction="#handleFermer"/>
+    <Button text="Supprimer l'utilisateur sélectionné" onAction="#handleSupprimer"/>
+    <Button text="Modifier l'utilisateur sélectionné" onAction="#handleModifierUtilisateur"/>
+
+</VBox>

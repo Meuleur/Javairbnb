@@ -28,7 +28,6 @@ public class AccueilController {
     @FXML private ComboBox<String> comboTri;
     @FXML private TextField champRecherche;
     @FXML private TableColumn<Hebergement, String> colType;
-    @FXML private Button espaceAdminButton;
 
 
     private ObservableList<Hebergement> data;
@@ -36,9 +35,6 @@ public class AccueilController {
 
     @FXML
     public void initialize() {
-        if (!LoginController.utilisateurConnecte.getRole().equals("ADMIN")) {
-            espaceAdminButton.setVisible(false);
-        }
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));

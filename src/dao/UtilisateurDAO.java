@@ -14,19 +14,21 @@ public class UtilisateurDAO {
         this.conn = DatabaseConnection.getConnection();
     }
 
-    // Méthode existante pour récupérer tous les clients
+    // Correction : SELECT au lieu de INSERT
     public List<Utilisateur> getAllClients() throws SQLException {
         List<Utilisateur> clients = new ArrayList<>();
-        String sql = "INSERT INTO Utilisateur (nom, prenom, email, mot_de_passe, type_client) VALUES (?, ?, ?, ?, ?)";
+        String sql = "SELECT * FROM Utilisateur WHERE role = 'CLIENT'";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
 
         while (rs.next()) {
             Utilisateur c = new Utilisateur();
-            c.setId(rs.getInt("id_client"));
+            c.setId(rs.getInt("id"));
             c.setNom(rs.getString("nom"));
             c.setPrenom(rs.getString("prenom"));
             c.setEmail(rs.getString("email"));
+            c.setTypeClient(rs.getString("type_client"));
+            c.setRole(rs.getString("role")); // Ajout du rôle
 
             clients.add(c);
         }
@@ -35,9 +37,8 @@ public class UtilisateurDAO {
         return clients;
     }
 
-    // Nouvelle méthode pour insérer un nouveau client
     public void insertUtilisateur(Utilisateur utilisateur) throws SQLException {
-        String sql = "INSERT INTO Utilisateur (nom, prenom, email, mot_de_passe, type_client) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Utilisateur (nom, prenom, email, mot_de_passe, type_client, role) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         stmt.setString(1, utilisateur.getNom());
@@ -45,13 +46,13 @@ public class UtilisateurDAO {
         stmt.setString(3, utilisateur.getEmail());
         stmt.setString(4, utilisateur.getMotDePasse());
         stmt.setString(5, utilisateur.getTypeClient());
+        stmt.setString(6, utilisateur.getRole());
 
         int affectedRows = stmt.executeUpdate();
         if (affectedRows == 0) {
             throw new SQLException("L'insertion de l'utilisateur a échoué, aucune ligne affectée.");
         }
 
-        // Récupérer l'ID auto-généré
         try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
             if (generatedKeys.next()) {
                 utilisateur.setId(generatedKeys.getInt(1));
@@ -77,6 +78,7 @@ public class UtilisateurDAO {
             u.setEmail(rs.getString("email"));
             u.setMotDePasse(rs.getString("mot_de_passe"));
             u.setTypeClient(rs.getString("type_client"));
+            u.setRole(rs.getString("role")); // Ajout du rôle
             utilisateurs.add(u);
         }
 
@@ -100,11 +102,30 @@ public class UtilisateurDAO {
             user.setEmail(rs.getString("email"));
             user.setMotDePasse(rs.getString("mot_de_passe"));
             user.setTypeClient(rs.getString("type_client"));
+            user.setRole(rs.getString("role")); // ✅ Lecture du rôle ici
             return user;
         }
 
         return null;
     }
+    public void deleteUtilisateur(int id) throws SQLException {
+        String sql = "DELETE FROM Utilisateur WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
+    public void updateUtilisateur(Utilisateur utilisateur) throws SQLException {
+        String sql = "UPDATE Utilisateur SET nom = ?, prenom = ?, email = ?, type_client = ?, role = ? WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, utilisateur.getNom());
+            stmt.setString(2, utilisateur.getPrenom());
+            stmt.setString(3, utilisateur.getEmail());
+            stmt.setString(4, utilisateur.getTypeClient());
+            stmt.setString(5, utilisateur.getRole());
+            stmt.setInt(6, utilisateur.getId());
+            stmt.executeUpdate();
+        }
+    }
 
 }
-

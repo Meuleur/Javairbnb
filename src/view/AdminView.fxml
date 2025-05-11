@@ -31,7 +31,7 @@
         <Button text="Modifier" onAction="#handleModifier" />
         <Button text="Supprimer" onAction="#handleSupprimer" />
         <Button text="Changer état" onAction="#handleToggleValide"/>
-
+        <Button text="Voir les utilisateurs" onAction="#handleVoirUtilisateurs"/>
     </HBox>
 
 </VBox>
