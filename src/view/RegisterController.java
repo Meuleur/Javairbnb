@@ -18,6 +18,7 @@ public class RegisterController {
     @FXML private TextField emailField;
     @FXML private PasswordField motDePasseField;
     @FXML private TextField typeClientField;
+
     @FXML
     public void handleRegister() {
         String nom = nomField.getText();
@@ -26,19 +27,16 @@ public class RegisterController {
         String motDePasse = motDePasseField.getText();
         String typeClient = typeClientField.getText();
 
-        // ✅ Vérification des champs obligatoires
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || motDePasse.isEmpty() || typeClient.isEmpty()) {
             showAlert("Champs manquants", "Veuillez remplir tous les champs.");
             return;
         }
 
-        // (Optionnel) validation email basique
         if (!email.contains("@")) {
             showAlert("Email invalide", "Veuillez entrer une adresse email valide.");
             return;
         }
 
-        // (Optionnel) mot de passe minimum 6 caractères
         if (motDePasse.length() < 6) {
             showAlert("Mot de passe trop court", "Le mot de passe doit contenir au moins 6 caractères.");
             return;
@@ -50,20 +48,20 @@ public class RegisterController {
         user.setEmail(email);
         user.setMotDePasse(motDePasse);
         user.setTypeClient(typeClient);
+        user.setRole("CLIENT");
 
         try {
             UtilisateurDAO dao = new UtilisateurDAO();
             dao.insertUtilisateur(user);
 
             showAlert("Succès", "Inscription réussie ! Redirection vers la connexion...");
-            handleBackToLogin(); // Redirection seulement après validation + enregistrement réussi
+            handleBackToLogin();
 
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Erreur", "Échec de l'inscription : " + e.getMessage());
         }
     }
-
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -81,7 +79,6 @@ public class RegisterController {
             stage.setScene(new Scene(loginRoot));
             stage.show();
 
-            // Fermer la fenêtre d'inscription
             ((Stage) nomField.getScene().getWindow()).close();
 
         } catch (Exception e) {

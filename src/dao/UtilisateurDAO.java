@@ -102,7 +102,7 @@ public class UtilisateurDAO {
             user.setEmail(rs.getString("email"));
             user.setMotDePasse(rs.getString("mot_de_passe"));
             user.setTypeClient(rs.getString("type_client"));
-            user.setRole(rs.getString("role")); // ✅ Lecture du rôle ici
+            user.setRole(rs.getString("role")); //
             return user;
         }
 
