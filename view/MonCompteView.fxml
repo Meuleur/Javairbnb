@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="view.MonCompteController"
+      alignment="CENTER" spacing="20" >
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Button text="Poster une annonce" onAction="#ouvrirFormulaireAnnonce" prefWidth="200"/>
+    <Button text="Mes réservations" onAction="#ouvrirMesReservations" prefWidth="200"/>
+    <Button text="Retour à l'accueil" onAction="#retourAccueil" prefWidth="200"/>
+    <Button text="Déconnexion" onAction="#seDeconnecter" prefWidth="200" style="-fx-background-color: red; -fx-text-fill: white;"/>
+
+</VBox>
