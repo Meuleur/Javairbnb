@@ -67,18 +67,17 @@ public class MonCompteController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AccueilView.fxml"));
             Parent root = loader.load();
 
-            // Méthode générique pour récupérer la fenêtre active
-            Stage stage = (Stage) Stage.getWindows().filtered(Window::isShowing).get(0);
-            stage.setScene(new Scene(root));
-            stage.show();
-
+            // Récupère la fenêtre actuelle (celle du bouton cliqué)
             Stage currentStage = (Stage) Stage.getWindows().filtered(Window::isShowing).get(0);
-            currentStage.close();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Accueil");
+            currentStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Déconnecte l’utilisateur et retourne à la page de connexion.
      */
