@@ -84,21 +84,20 @@ public class MonCompteController {
     @FXML
     private void seDeconnecter() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));  // <-- adapte si ton fichier s'appelle autrement
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginView.fxml"));
             Parent root = loader.load();
 
-            // Ferme la fenêtre actuelle et recharge la scène de login
-            Stage stage = (Stage) Stage.getWindows().filtered(Window::isShowing).get(0);
-            stage.setScene(new Scene(root));
-            stage.setTitle("Connexion");
-            stage.show();
+            // ✅ Récupère la fenêtre actuelle et remplace simplement la scène
             Stage currentStage = (Stage) Stage.getWindows().filtered(Window::isShowing).get(0);
-            currentStage.close();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Connexion");
+            currentStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Ouvre la page listant les hébergements que l’utilisateur a réservés et payés.
      * Ferme la fenêtre actuelle.
