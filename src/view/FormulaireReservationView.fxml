@@ -6,7 +6,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Button?>
-
+<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -15,8 +15,11 @@
             style="-fx-background-color: linear-gradient(to bottom right, #e3f2fd, #ffffff);">
 
     <VBox alignment="CENTER" spacing="20" layoutX="100" layoutY="50" prefWidth="400"
-          style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 6);"
-          padding="20">
+          style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 6);">
+
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
 
         <Label text="Formulaire de Réservation"
                style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #37474F;" />
@@ -33,20 +36,17 @@
 
         <HBox spacing="10" alignment="CENTER">
             <Label text="Nombre d’adultes:" style="-fx-pref-width: 130;"/>
-            <Spinner fx:id="spinnerAdultes" prefWidth="100"
-                     style="-fx-background-radius: 10;"/>
+            <Spinner fx:id="spinnerAdultes" prefWidth="100" style="-fx-background-radius: 10;"/>
         </HBox>
 
         <HBox spacing="10" alignment="CENTER">
             <Label text="Nombre d’enfants:" style="-fx-pref-width: 130;"/>
-            <Spinner fx:id="spinnerEnfants" prefWidth="100"
-                     style="-fx-background-radius: 10;"/>
+            <Spinner fx:id="spinnerEnfants" prefWidth="100" style="-fx-background-radius: 10;"/>
         </HBox>
 
         <Button text="Envoyer la demande"
                 onAction="#envoyerDemande"
                 prefWidth="200"
                 style="-fx-background-color: #00796b; -fx-text-fill: white; -fx-background-radius: 20;"/>
-
     </VBox>
 </AnchorPane>
