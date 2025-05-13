@@ -1,6 +1,12 @@
 package model;
 
 
+/**
+ * Représente un utilisateur de la plateforme, qu'il soit client ou propriétaire.
+ * Contient les informations personnelles et les identifiants de connexion.
+ */
+
+
 public class Utilisateur {
     private int id;
     private String nom;

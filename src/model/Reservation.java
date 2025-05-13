@@ -3,6 +3,12 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
+/**
+ * Représente une réservation effectuée par un utilisateur pour un hébergement.
+ * Contient les dates d'arrivée et de départ, le nombre de personnes, et les statuts associés.
+ */
+
 public class Reservation {
     private int id;
     private int utilisateurId;

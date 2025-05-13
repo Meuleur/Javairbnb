@@ -2,6 +2,12 @@ package model;
 
 import java.time.LocalDate;
 
+
+/**
+ * Représente un paiement effectué pour une réservation.
+ * Inclut le montant, la date du paiement, et l’identifiant de la réservation associée.
+ */
+
 public class Paiement {
     private int id;
     private int reservationId;

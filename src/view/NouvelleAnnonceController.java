@@ -2,15 +2,22 @@ package view;
 
 import dao.HebergementDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import model.Hebergement;
+import javafx.scene.control.ComboBox;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Hebergement;
+import javafx.scene.Scene;
 import utils.Session;
+
+/**
+ * Contrôleur de la page de création d'une nouvelle annonce.
+ * Permet à un propriétaire de renseigner les informations d'un hébergement
+ * et de l’ajouter à la base de données.
+ */
+
 public class NouvelleAnnonceController {
 
     @FXML private TextField nomField;
@@ -19,6 +26,11 @@ public class NouvelleAnnonceController {
     @FXML private TextField prixField;
     @FXML private ComboBox<String> typeField;
 
+
+    /**
+     * Gère la création d'une annonce à partir des champs saisis.
+     * Valide les entrées, enregistre l’hébergement et redirige vers la page d'accueil.
+     */
     @FXML
     private void handlePosterAnnonce() {
         String nom = nomField.getText();
@@ -79,14 +91,21 @@ public class NouvelleAnnonceController {
             showAlert("Erreur", "Impossible de poster l'annonce.");
         }
     }
-
+    /**
+     * Réinitialise tous les champs du formulaire.
+     */
     private void clearFields() {
         nomField.clear();
         adresseField.clear();
         descriptionField.clear();
         prixField.clear();
     }
-
+    /**
+     * Affiche une boîte de dialogue avec un message donné.
+     *
+     * @param titre   le titre de la fenêtre d’alerte
+     * @param message le message à afficher
+     */
     private void showAlert(String titre, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titre);

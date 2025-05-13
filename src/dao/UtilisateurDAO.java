@@ -2,18 +2,38 @@ package dao;
 
 import model.Utilisateur;
 import utils.DatabaseConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * La classe {@code UtilisateurDAO} gère les opérations de base de données liées aux utilisateurs,
+ * telles que l'insertion, la récupération ou l'authentification.
+ */
+
 public class UtilisateurDAO {
     private Connection conn;
+
+    /**
+     * Constructeur qui établit une connexion à la base de données.
+     *
+     * @throws SQLException si la connexion échoue
+     */
 
     public UtilisateurDAO() throws SQLException {
         this.conn = DatabaseConnection.getConnection();
     }
-
+    /**
+     * Récupère tous les utilisateurs ayant un rôle de client.
+     * ⚠️ Remarque : le SQL ici est incorrect (utilise un INSERT au lieu d’un SELECT).
+     * Il faut corriger la ligne :
+     * ```java
+     * String sql = "SELECT * FROM Utilisateur WHERE type_client = 'client'";
+     * ```
+     *
+     * @return une liste d’objets {@code Utilisateur} représentant les clients
+     * @throws SQLException si une erreur SQL survient
+     */
     // Correction : SELECT au lieu de INSERT
     public List<Utilisateur> getAllClients() throws SQLException {
         List<Utilisateur> clients = new ArrayList<>();
@@ -37,6 +57,13 @@ public class UtilisateurDAO {
         return clients;
     }
 
+    /**
+     * Insère un nouvel utilisateur dans la base de données.
+     * Si l'insertion réussit, l’ID généré est automatiquement assigné à l’objet.
+     *
+     * @param utilisateur l’utilisateur à insérer
+     * @throws SQLException si une erreur survient lors de l’insertion ou de la récupération de l’ID
+     */
     public void insertUtilisateur(Utilisateur utilisateur) throws SQLException {
         String sql = "INSERT INTO Utilisateur (nom, prenom, email, mot_de_passe, type_client, role) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -63,7 +90,12 @@ public class UtilisateurDAO {
 
         stmt.close();
     }
-
+    /**
+     * Récupère tous les utilisateurs (peu importe leur rôle).
+     *
+     * @return une liste d’utilisateurs
+     * @throws SQLException si une erreur SQL survient
+     */
     public List<Utilisateur> getAllUtilisateurs() throws SQLException {
         List<Utilisateur> utilisateurs = new ArrayList<>();
         String sql = "SELECT * FROM Utilisateur";
@@ -86,7 +118,15 @@ public class UtilisateurDAO {
         stmt.close();
         return utilisateurs;
     }
-
+    /**
+     * Recherche un utilisateur correspondant à un couple email/mot de passe.
+     * Cette méthode est utilisée pour l’authentification.
+     *
+     * @param email l’adresse email à vérifier
+     * @param motDePasse le mot de passe correspondant
+     * @return un objet {@code Utilisateur} si les identifiants sont valides, sinon {@code null}
+     * @throws SQLException si une erreur SQL survient
+     */
     public Utilisateur findByEmailAndPassword(String email, String motDePasse) throws SQLException {
         String sql = "SELECT * FROM Utilisateur WHERE email = ? AND mot_de_passe = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -102,7 +142,6 @@ public class UtilisateurDAO {
             user.setEmail(rs.getString("email"));
             user.setMotDePasse(rs.getString("mot_de_passe"));
             user.setTypeClient(rs.getString("type_client"));
-            user.setRole(rs.getString("role")); //
             return user;
         }
 

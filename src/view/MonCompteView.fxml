@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="view.MonCompteController"
+            prefWidth="800" prefHeight="600"
+            style="-fx-background-color: linear-gradient(to bottom right, #e0f7fa, #ffffff);">
+
+    <!-- Carte centrale -->
+    <VBox alignment="CENTER" spacing="20" layoutX="200" layoutY="120" prefWidth="400"
+          style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 4);">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <Label text="Mon Compte" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+        <Button text="Poster une annonce"
+                onAction="#ouvrirFormulaireAnnonce"
+                prefWidth="250"
+                style="-fx-background-radius: 20; -fx-background-color: #00acc1; -fx-text-fill: white;"/>
+
+        <Button text="Mes réservations"
+                onAction="#ouvrirMesReservations"
+                prefWidth="250"
+                style="-fx-background-radius: 20; -fx-background-color: #00796b; -fx-text-fill: white;"/>
+
+        <Button text="Mes hébergements payés"
+                onAction="#ouvrirHebergementsPayes"
+                prefWidth="250"
+                style="-fx-background-radius: 20; -fx-background-color: #00838f; -fx-text-fill: white;"/>
+
+        <Button text="Retour à l'accueil"
+                onAction="#retourAccueil"
+                prefWidth="250"
+                style="-fx-background-radius: 20; -fx-background-color: #546e7a; -fx-text-fill: white;"/>
+
+        <Button text="Déconnexion"
+                onAction="#seDeconnecter"
+                prefWidth="250"
+                style="-fx-background-radius: 20; -fx-background-color: #d32f2f; -fx-text-fill: white;"/>
+    </VBox>
+
+</AnchorPane>

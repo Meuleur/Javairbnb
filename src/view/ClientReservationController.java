@@ -1,27 +1,32 @@
 package view;
 
-import dao.HebergementDAO;
-import dao.PaiementDAO;
 import dao.ReservationDAO;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
+import dao.PaiementDAO;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import model.Reservation;
+import utils.Session;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import model.Hebergement;
-import model.Reservation;
-import utils.Session;
-
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.stage.Window;
+import java.io.IOException;
+import dao.HebergementDAO;
+import model.Hebergement;
 
+
+/**
+ * Contrôleur de la vue de gestion des réservations côté client/propriétaire.
+ * Gère l'affichage des réservations faites par le client et les demandes reçues par le propriétaire.
+ * Permet de valider, payer, ou consulter les réservations.
+ */
 public class ClientReservationController {
 
     @FXML private TableView<Reservation> tableDemandes;
@@ -38,7 +43,9 @@ public class ClientReservationController {
     @FXML private TableColumn<Reservation, Void> colActionPayer;
     @FXML private TableColumn<Reservation, String> colPrix;
 
-
+    /**
+     * Initialise les colonnes des deux tableaux et charge les données.
+     */
     @FXML
     public void initialize() {
         // Colonnes pour tableDemandes
@@ -171,7 +178,9 @@ public class ClientReservationController {
         chargerDemandes();
         chargerReceptions();
     }
-
+    /**
+     * Charge les réservations envoyées par l'utilisateur actuel.
+     */
 
     private void chargerDemandes() {
         try {
@@ -182,6 +191,9 @@ public class ClientReservationController {
             e.printStackTrace();
         }
     }
+    /**
+     * Charge les réservations reçues en tant que propriétaire.
+     */
     private void chargerReceptions() {
         try {
             int proprietaireId = Session.getInstance().getUtilisateurActuel().getId();
@@ -191,6 +203,9 @@ public class ClientReservationController {
             e.printStackTrace();
         }
     }
+    /**
+     * Retourne à la page d'accueil.
+     */
     @FXML
     private void retourAccueil() {
         try {
